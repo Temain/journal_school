@@ -1,0 +1,22 @@
+.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: "button", class: "close", "data-dismiss" => "modal", "aria-hidden" => "true" } ×
+        %h4.modal-title Списание
+      = form_tag(@item, method: :delete) do
+        .modal-body
+
+          %fieldset
+            .form-group
+              .col-lg-12
+                %div= "Вы действительно хотите списать #{@item.full_name}?"
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Отмена
+          = button_tag class: "btn btn-primary" do
+            %i.glyphicon.glyphicon-ok
+            Списать
+

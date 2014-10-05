@@ -1,0 +1,28 @@
+#report_by_spare_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: "button", class: "close", "data-dismiss" => "modal", "aria-hidden" => "true" } ×
+        %h4.modal-title Отчет по расходованию зап. частей
+      = form_tag(report_by_spare_path) do
+        .modal-body
+
+          %fieldset
+            .form-group
+              .col-lg-12
+                = label :equipment_type_id, "Тип", class: "control-label"
+                = select :equipment_type_id, nil, @equipment_types, {}, class: "form-control"
+
+            .form-group
+              .col-lg-12
+                = label :spare, "Зап. часть", class: "control-label"
+                = text_field_tag :spare, nil, placeholder: "Введите наименование...", class: "typeahead full-width form-control"
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Отмена
+          = button_tag class: "btn btn-primary" do
+            %i.glyphicon.glyphicon-floppy-disk
+            Сохранить
+

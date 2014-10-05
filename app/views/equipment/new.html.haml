@@ -1,0 +1,109 @@
+.container-fluid.edit
+  .header
+    .row.menu
+      .col-md-12
+        .pull-right
+          .menu-item
+            = link_to "javascript:;", method: :get, class: "dropdown-toggle", data: { toggle: "dropdown" }, id: "actions-link", "data-content" => "Действия",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bars 2x", class: "text-muted"
+            %ul.dropdown-menu.dark
+              %div
+                = link_to new_equipment_path, method: :get do
+                  = fa_icon "plus-square", class: "text-muted"
+                  %span Добавить
+              %div
+                = link_to import_path, method: :get do
+                  = fa_icon "download", class: "text-muted"
+                  %span Импорт
+          .menu-item
+            = link_to "javascript:;", id: "reports-link", class: "dropdown-toggle", data: { toggle: "dropdown" }, "data-content" => "Отчеты",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bar-chart-o 2x", class: "text-muted"
+            %ul.dropdown-menu.dark
+              %li= link_to "По подразделению", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_department_modal"
+              %li= link_to "По зап. части", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_spare_modal"
+
+          -#.menu-item
+          -#  = link_to user_root_path, id: "profile-link", class: "dropdown-toggle", data: { toggle: "dropdown" }, "data-content" => "Профиль",
+          -#    "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+          -#    = fa_icon "user 2x", class: "text-muted"
+          -#  %ul.dropdown-menu
+          -#    .portrait
+
+          .menu-item
+            = link_to destroy_user_session_path, method: :delete, id: "log-out-link", "data-content" => "Выйти",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "power-off 2x", class: "text-muted"
+        %div.user-name
+          = fa_icon "user", class: "text-muted"
+          = current_user.email.split("@")[0]
+    .row.back
+      .col-md-12
+        .pull-left
+          .menu-item
+            = link_to equipment_index_path, method: :get, id: "back-link", "data-content" => "Назад",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "arrow-circle-o-left 2x", class: "text-muted"
+    .row
+      = image_tag("logo2.jpg", class: "logo")
+      .col-md-6.col-md-offset-3
+        %h1.title Новое оборудование
+  .row.content
+    .col-md-6.col-md-offset-3
+      =form_for(@item, html: { class: "form-horizontal" }) do |f|
+        %fieldset
+          -#%legend Добавление
+
+          #remote.search-field.form-group
+            .col-lg-12
+              .left-inner-addon
+                %i.glyphicon.glyphicon-search
+              = text_field_tag :full_name, nil, class: "typeahead search-equipment form-control", placeholder: "Найти оборудование..."
+
+          #flash-display
+            - if @item.errors.any?
+              %div{:class => "alert alert-dismissable alert-danger", "data-dismiss" => "alert"}
+                %button.close &times;
+                - @item.errors.full_messages.each do |msg|
+                  %li= msg
+
+          .form-group
+            - field_with_errors @item, :equipment_type do
+              - f.label :equipment_type_id, "Тип", class: "col-lg-2 control-label"
+
+            .col-lg-10
+              = f.select :equipment_type_id, @equipment_types,
+                         { prompt: "Выберите тип оборудования..." }, class: "form-control"
+
+          = fields_for @item.manufacturer do |m|
+            .form-group
+              = m.label :name, "Производитель", class: "col-lg-2 control-label"
+              #remote.col-lg-10
+                = m.text_field :name, class: "typeahead manufacturer form-control", placeholder: "Введите производителя..."
+
+          .form-group
+            = f.label :model, "Модель", class: "col-lg-2 control-label"
+            .col-lg-10
+              = f.text_field :model, placeholder: "Введите модель...", class: "form-control"
+
+          .form-group
+            - field_with_errors @item, :department do
+              = f.label :department_id, "Подразделение", class: "col-lg-2 control-label"
+            .col-lg-10
+              = f.select :department_id, @departments,
+                  { prompt: "Выберите подразделение..." }, class: "form-control"
+
+          .form-group
+            = f.label :inventory_number, "Инвентарный номер", class: "col-lg-2 control-label"
+            .col-lg-10
+              = f.text_field :inventory_number, placeholder: "Введите инвентарный номер...",
+                              maxlength: "12", class: "form-control"
+
+          .form-group
+            .col-lg-10.col-lg-offset-2
+              = f.button class: "btn btn-primary" do
+                %i.glyphicon.glyphicon-floppy-disk
+                Сохранить
+  = render partial: 'report_by_department'
+  = render partial: 'report_by_spare'

@@ -1,0 +1,30 @@
+.container-fluid
+  .main
+    .row.center-row
+      .col-xs-12.col-md-4.col-md-offset-4.center
+        = image_tag("logo2.jpg", class: "logo")
+        // %h2.title Система мониторинга оборудования
+        %hr.divider
+
+        #flash-display
+          - flash.each do |type, msg|
+            %div{:class => "alert alert-dismissable alert-#{type == "notice" ? "success" : "danger" }", "data-dismiss" => "alert"}
+              %button.close &times;
+              = msg if msg.is_a?(String)
+
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .input-group
+            %span.input-group-addon
+              %i.glyphicon.glyphicon-user
+            = f.text_field :login, class: "form-control", placeholder: "Введите имя пользователя...", autofocus: true
+          .input-group
+            %span.input-group-addon
+              %i.glyphicon.glyphicon-lock
+            = f.password_field :password, class: "form-control", placeholder: "Введите пароль...", autocomplete: "off"
+          = button_tag  class: "btn btn-primary sign-in" do
+            %span Войти
+            %i.glyphicon.glyphicon-log-in
+    %footer.row
+      .col-xs-12.col-md-12
+        %p © 2014 ФГБОУ ВПО «Кубанский государственный аграрный университет»
+

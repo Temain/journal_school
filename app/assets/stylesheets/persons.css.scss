@@ -1,0 +1,9 @@
+// Place all the styles related to the persons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.portrait {
+  background-image: url(portrait.svg);
+  background-repeat: no-repeat;
+  width: 256px;
+  height: 256px;
+}

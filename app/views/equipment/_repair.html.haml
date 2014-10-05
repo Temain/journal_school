@@ -1,0 +1,37 @@
+#repair_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: "button", class: "close", "data-dismiss" => "modal", "aria-hidden" => "true" } ×
+        %h4.modal-title Отправка в ремонт
+      = form_tag("/equipment/#/repair", html: { class: "form-horizontal" }) do
+        .modal-body
+
+          %fieldset
+            .form-group
+              = label :action_date, "Дата ремонта", class: "control-label"
+              .col-lg-12
+                #datetimepicker.input-group.date{ "data-date-format" => "DD.MM.YYYY" }
+                  = text_field_tag :action_date, nil, class: "form-control"
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+
+            .form-group
+              = label :reason, "Причина ремонта", class: "control-label"
+              .col-lg-12
+                = text_area :reason, nil, rows: 5, :placeholder => 'Укажите причину ремонта...', class: "form-control"
+
+            .form-group
+              = label "spares", "Замененные детали", class: "control-label"
+              .col-lg-12
+                = hidden_field_tag "spares", nil, class: "form-control"
+                -#= select 'e1', nil, [], {}, id: "spares", class: "form-control", multiple: true
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Отмена
+          = button_tag class: "btn btn-primary" do
+            %i.glyphicon.glyphicon-floppy-disk
+            Сохранить
+

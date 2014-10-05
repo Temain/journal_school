@@ -1,0 +1,139 @@
+$nprogress-color: #FF5C02;
+@import 'nprogress';
+@import 'nprogress-bootstrap';
+
+@import 'history';
+
+//.import {
+//  @extend .history;
+//
+//  .header {
+//    .title {
+//      border-left: none;
+//      text-align: center;
+//      padding-left: 0;
+//    }
+//  }
+//
+//
+//  .content {
+//    padding: 30px 0px 30px 0px;
+//
+//    #import_file {
+//      display: none;
+//    }
+//
+//    .actions {
+//      text-align: center;
+//
+//      .item {
+//        display: inline-block;
+//        font-size: 5em;
+//      }
+//
+//      .file-item {
+//        @extend .item;
+//        margin-right: 10px;
+//      }
+//
+//      .import-item {
+//        @extend .item;
+//        margin-left: 10px;
+//      }
+//    }
+//
+//  }
+//}
+
+.import {
+ // background-color: #2b3e50;
+ /* max-height: 100%;
+  max-width: 100%;
+  margin-bottom: -20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;*/
+
+  .header {
+    //border-bottom: 1px solid #FF6803;
+
+    .title {
+      border-left: none;
+      text-align: center;
+      padding-left: 0;
+      font-size: 3em;
+    }
+  }
+
+  .content {
+    padding: 70px 0px 30px 0px;
+
+    #import_file {
+      display: none;
+    }
+
+    .actions {
+      text-align: center;
+
+      .item {
+        text-align: center;
+        display: inline-block;
+        font-size: 4em;
+        margin-bottom: 40px;
+
+        a {
+          display: block;
+
+          div {
+            color: #4e5d6c;
+            font-size: 0.5em;
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        &:hover a > div,
+        &:hover a > i {
+          color: #000;
+          text-decoration: none !important;
+        }
+      }
+
+      .file-item {
+        @extend .item;
+        //margin-right: 20px;
+
+        .file-ext {
+          font-size: 1.4em;
+        }
+      }
+
+      .hidden-item {
+        @extend .item;
+        width: 2em;
+      }
+
+      .import-item {
+        @extend .item;
+        //margin-left: 20px;
+      }
+    }
+
+  }
+
+  .file_name {
+    font-size: 1.3em;
+  }
+
+  .progress {
+    background-image: none;
+  }
+
+  .progress.progress-striped.active {
+    display: none;
+  }
+}

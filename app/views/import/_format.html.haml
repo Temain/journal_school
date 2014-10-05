@@ -1,0 +1,23 @@
+#format_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Форматирование
+      = form_tag(download_path('formated'), method: :get, id: 'format_form', target: '_self') do
+        .modal-body
+
+          %fieldset
+            .form-group
+              .row
+                .col-lg-12
+                  %span Вы хотите отформатировать файл
+                  %span.file_name
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Нет
+          = button_tag class: "btn btn-primary", id: "format_btn" do
+            %i.glyphicon.glyphicon-floppy-disk
+            Да
+

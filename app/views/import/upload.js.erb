@@ -1,0 +1,10 @@
+NProgress.done();
+$("#result_modal_container").html("<%= escape_javascript(render :partial => 'results', :results => @results) %>");
+$('#results_modal').modal({
+  backdrop: 'static',
+  keyboard: false
+});
+
+$('#results_modal').on('hidden.bs.modal', function() {
+  location.reload()
+});

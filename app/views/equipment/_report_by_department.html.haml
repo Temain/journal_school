@@ -1,0 +1,37 @@
+#report_by_department_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: "button", class: "close", "data-dismiss" => "modal", "aria-hidden" => "true" } ×
+        %h4.modal-title Отчет по подразделению
+      = form_tag(report_by_department_path, html: { class: "form-horizontal" }) do
+        .modal-body
+
+          %fieldset
+            .form-group
+              .col-lg-12
+                = select 'department_id', nil, @departments,
+                    { prompt: "Выберите подразделение..." }, class: "form-control"
+
+            .form-group
+              .col-lg-6
+                = label :start_date, "С:", class: "control-label"
+                #start_datetimepicker.input-group.date{ "data-date-format" => "DD.MM.YYYY" }
+                  = text_field_tag :start_date, nil, class: "form-control"
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+              .col-lg-6
+                = label :end_date, "По:", class: "control-label"
+                #end_datetimepicker.input-group.date{ "data-date-format" => "DD.MM.YYYY" }
+                  = text_field_tag :end_date, nil, class: "form-control"
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Отмена
+          = button_tag class: "btn btn-primary" do
+            %i.glyphicon.glyphicon-floppy-disk
+            Сохранить
+

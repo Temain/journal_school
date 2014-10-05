@@ -1,0 +1,3 @@
+= form_tag(import_departments_path, id: "import_form", multipart: true, method: :post, authenticity_token: true) do
+  = file_field_tag 'import_file', accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+  = submit_tag "Импорт"

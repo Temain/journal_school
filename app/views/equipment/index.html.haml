@@ -1,0 +1,84 @@
+.container-fluid
+  .header
+    .row.menu
+      .col-md-12.col-xs-12
+        .pull-right
+          .menu-item
+            = link_to "javascript:;", method: :get, class: "dropdown-toggle", data: { toggle: "dropdown" }, id: "actions-link", "data-content" => "Действия",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bars 2x", class: "text-muted"
+            %ul.dropdown-menu.dark
+              %div
+                = link_to new_equipment_path, method: :get do
+                  = fa_icon "plus-square", class: "text-muted"
+                  %span Добавить
+              %div
+                = link_to import_path, method: :get do
+                  = fa_icon "download", class: "text-muted"
+                  %span Импорт
+          .menu-item
+            = link_to "javascript:;", id: "reports-link", class: "dropdown-toggle", data: { toggle: "dropdown" }, "data-content" => "Отчеты",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bar-chart-o 2x", class: "text-muted"
+            %ul.dropdown-menu.dark.normal
+              %li= link_to "По подразделению", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_department_modal"
+              %li= link_to "По зап. части", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_spare_modal"
+
+          .menu-item
+            = link_to destroy_user_session_path, method: :delete, id: "log-out-link", "data-content" => "Выйти",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "power-off 2x", class: "text-muted"
+        %div.user-name
+          = fa_icon "user", class: "text-muted"
+          = current_user.email.split("@")[0]
+
+    .row
+      = image_tag("logo2.jpg", class: "logo")
+      .col-md-6.col-md-offset-3
+        %h1.title Список оборудования
+    .row
+      .col-md-12
+        %nav
+          %ul.navigation
+            %li.nav-item.active
+              = button_tag "Все", class: "filter link", data: { filter: "all" }
+            - @categories.each_with_index do |c, index|
+              %li.nav-item
+                = button_tag c.name, class: "filter link", data: { filter: ".category-#{index}" }
+
+  .row.scroll-down
+    .col-md-12
+      = link_to 'javascript:;', id: "down" do
+        = fa_icon "angle-down 2x", class: "text-muted"
+  .row.scroll-up
+    .col-md-12
+      = link_to 'javascript:;', id: "up" do
+        = fa_icon "angle-up 2x", class: "text-muted"
+  .row
+    .col-md-6.col-md-offset-3
+      #flash-display
+        - flash.each do |type, msg|
+          %div{:class => "alert alert-dismissable alert-#{type == "notice" ? "success" : "danger" }", "data-dismiss" => "alert"}
+            %button.close &times;
+            = msg if msg.is_a?(String)
+
+      = form_tag(equipment_index_path, method: :get, class: "search-form") do
+        .input-group
+          %span.input-group-addon
+            %i.glyphicon.glyphicon-search
+          = text_field_tag :search, params[:search], class: "form-control", placeholder: "Введите строку поиска..."
+          %span.input-group-btn
+            = submit_tag "Поиск", class: "btn btn-primary", name: nil
+
+      #Container
+        =render partial: 'container'
+
+  .page-buffer
+  %footer.row
+    .col-xs-12.col-md-12
+      #write_off_modal
+      = render partial: 'relocation'
+      = render partial: 'repair'
+
+      = render partial: 'report_by_department'
+      = render partial: 'report_by_spare'

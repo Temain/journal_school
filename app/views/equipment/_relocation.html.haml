@@ -1,0 +1,28 @@
+#relocation_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{ type: "button", class: "close", "data-dismiss" => "modal", "aria-hidden" => "true" } ×
+        %h4.modal-title Передать подразделению
+      = form_tag("/equipment/#/relocation", html: { class: "form-horizontal" }) do
+        .modal-body
+          -##flash-display
+          -#  - flash.each do |type, msg|
+          -#    %div{:class => "alert alert-dismissable alert-#{type == "notice" ? "success" : "danger" }", "data-dismiss" => "alert"}
+          -#      %button.close &times;
+          -#      = msg if msg.is_a?(String)
+
+          %fieldset
+            .form-group
+              .col-lg-12
+                = select 'new_department_id', nil, @departments,
+                    { prompt: "Выберите подразделение..." }, class: "form-control"
+
+        .modal-footer
+          = button_tag class: "btn btn-default", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Отмена
+          = button_tag class: "btn btn-primary" do
+            %i.glyphicon.glyphicon-floppy-disk
+            Сохранить
+

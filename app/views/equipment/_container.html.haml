@@ -1,0 +1,8 @@
+- if @equipment.any?
+  = render @equipment
+  = paginate @equipment, params: { controller: 'equipment', action: 'index',
+                              _: nil, _method: nil, authenticity_token: nil, utf8: nil }
+- else
+  Oops, but nothing to show T_T
+
+

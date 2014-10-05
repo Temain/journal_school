@@ -1,0 +1,28 @@
+#results_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Результаты импорта
+      = form_tag('javascript:;') do
+        .modal-body
+
+          %fieldset
+            .form-group
+              .row
+                .col-lg-6
+                  %span= "Добавлено: <strong style='font-size: 1.3em;'>#{@results[:imported]}</strong> |"
+                  %span= "Обновлено: <strong style='font-size: 1.3em;'>#{@results[:updated]}</strong>"
+                .col-lg-6
+                  %span= "Не добавлено: <strong style='font-size: 1.3em;'>#{@results[:not_imported]}</strong> |"
+                  %span= "Не обновлено: <strong style='font-size: 1.3em;'>#{@results[:not_updated]}</strong>"
+              .row
+                .col-lg-6
+                .col-lg-6
+                  %span
+                    =link_to "Не импортированные записи", download_path('not_imported'), target: '_self'#, remote: true
+
+        .modal-footer
+          = button_tag class: "btn btn-default", id: "close_btn", "data-dismiss" => "modal" do
+            %i.glyphicon.glyphicon-remove
+            Закрыть
+

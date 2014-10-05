@@ -1,0 +1,53 @@
+= content_tag :div, class: "item mix category-#{item.equipment_type.category.id - 1}" do
+  .actions
+    = link_to edit_equipment_path(item.id), id: "edit-link", "data-content" => "Редактировать",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "pencil", class: "text-muted"
+
+    = link_to write_off_path(item.id), remote: true, id: "write-off-link", "data-content" => "Списать",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "trash-o", class: "text-muted"
+
+    = link_to 'javascript:;', class: "repair-link", id: "repair-link", "data-content" => "В ремонт",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "wrench", class: "text-muted", "data-toggle" => "modal", "data-target" => "#repair_modal", id: item.id, equipment_type_id: item.equipment_type.id
+
+    = link_to 'javascript:;', id: "relocation-link", "data-content" => "Передать подразделению",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "exchange", class: "text-muted", "data-toggle" => "modal", "data-target" => "#relocation_modal", id: item.id
+
+    = link_to report_by_equipment_path(item.id), method: :get, id: "pdf-link", "data-content" => "Экспорт в pdf",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover", target: '_self' do
+      = fa_icon "file-pdf-o", class: "text-muted"
+
+    = link_to history_path(item.id), method: :get, id: "history-link", "data-content" => "История",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "history", class: "text-muted"
+
+    = link_to 'javascript:;', class: "actions-link", id: item.id, "data-content" => "Действия",
+      "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+      = fa_icon "bars", class: "text-muted", title: "Действия", id: item.id
+
+  .name= item.full_name
+  .inventory= "Инвентарный номер: #{item.inventory_number}"
+  .bottom
+    .department
+      Подразделение:
+      %span
+        .btn-group
+          =button_tag class: "dropdown-toggle", type: "button", data: { toggle: "dropdown" } do
+            = item.department.name
+          %ul.dropdown-menu
+            %div
+              =fa_icon "user"
+              = "#{item.department.chief}"
+            %div
+              =fa_icon "phone"
+              - if item.department.phone_number
+                = "#{local_phone_number item.department.phone_number}"
+              - else
+                = "-"
+
+    -#.created_at= "Добавлен: #{item.created_at.strftime("%d.%m.%Y")}"
+    -#- if item.writed_off?
+    -#  .writed_off= Списан

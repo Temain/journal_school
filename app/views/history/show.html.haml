@@ -1,0 +1,79 @@
+-#- @journal_records.each do |record|
+-#  -if record.journalable.instance_of?(Relocation)
+-#    %h3= record.journalable.department.name
+-#  -else
+-#    %h3= record.journalable.reason
+
+.container-fluid
+  .history
+    .row.menu
+      .col-md-12
+        .pull-right
+          .menu-item
+            = link_to "javascript:;", method: :get, class: "dropdown-toggle", data: { toggle: "dropdown" }, id: "actions-link", "data-content" => "Действия",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bars 2x", class: "text-muted"
+            %ul.dropdown-menu.dark
+              %div
+                = link_to new_equipment_path, method: :get do
+                  = fa_icon "plus-square", class: "text-muted"
+                  %span Добавить
+              %div
+                = link_to import_path, method: :get do
+                  = fa_icon "download", class: "text-muted"
+                  %span Импорт
+          .menu-item
+            = link_to "javascript:;", id: "reports-link", class: "dropdown-toggle", data: { toggle: "dropdown" }, "data-content" => "Отчеты",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "bar-chart-o 2x", class: "text-muted"
+            %ul.dropdown-menu.dark.normal
+              %li= link_to "По подраделению", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_department_modal"
+              %li= link_to "По зап. части", "javascript:;", class: "text-muted", "data-toggle" => "modal", "data-target" => "#report_by_spare_modal"
+
+          -#.menu-item
+          -#  = link_to user_root_path, id: "profile-link", class: "dropdown-toggle", data: { toggle: "dropdown" }, "data-content" => "Профиль",
+          -#    "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+          -#    = fa_icon "user 2x", class: "text-muted"
+          -#  %ul.dropdown-menu
+          -#    .portrait
+
+          .menu-item
+            = link_to destroy_user_session_path, method: :delete, id: "log-out-link", "data-content" => "Выйти",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "power-off 2x", class: "text-muted"
+        %div.user-name
+          = fa_icon "user", class: "text-muted"
+          = current_user.email.split("@")[0]
+
+    .row.back
+      .col-md-12
+        .pull-left
+          .menu-item
+            = link_to equipment_index_path, method: :get, id: "back-link", "data-content" => "Назад",
+              "rel" => "popover", "data-placement" => "bottom", "data-trigger" => "hover" do
+              = fa_icon "arrow-circle-o-left 2x", class: "text-muted"
+    .row.header
+      = image_tag("logo2.jpg", class: "logo")
+      .col-md-6.col-md-offset-3
+        %h1.title= @item.full_name
+    .row.content
+      .col-md-6.col-md-offset-3.col-xs-12
+        %div{ id: "timelineContainer", class: "timelineContainer" }
+          - if @journal_records.any?
+            - @journal_records.each do |one_year_records|
+              %div{ class: "timelineMajor" }
+                %h2{ class: "timelineMajorMarker" }
+                  %span= one_year_records.first
+                - one_year_records.last.each_with_index do |event, index|
+                  %dl{ class: "timelineMinor" }
+                    %dt{ id:"event-#{one_year_records.first}#{index + 1}" }
+                      %a
+                        %strong= Russian::strftime(event.action_date, "%B, %d")
+                        #{event.full_text}
+                    %dd{ class: "timelineEvent", id: "event-#{one_year_records.first}#{index + 1}EX", style: "display: none; " }
+                      = event_subtext(event)
+          -else
+            %h3 С данным оборудованием ничего не происходило.
+
+  = render partial: 'equipment/report_by_department'
+  = render partial: 'equipment/report_by_spare'
