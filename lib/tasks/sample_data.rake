@@ -8,11 +8,6 @@ namespace :db do
                  email:                 "cherepovskiy@evgeny.by",
                  password:              "12345678",
                  password_confirmation: "12345678")
-
-    User.create!(username:              "temain",
-                 email:                 "temain@mail.ru",
-                 password:              "12345678",
-                 password_confirmation: "12345678")
   end
 
 
