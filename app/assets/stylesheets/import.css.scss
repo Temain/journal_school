@@ -87,12 +87,16 @@ $nprogress-color: #FF5C02;
           display: block;
 
           div {
-            color: #4e5d6c;
+            color: #ffffff;
             font-size: 0.5em;
           }
 
           &:hover {
             text-decoration: none;
+          }
+
+          i {
+            color: white;
           }
         }
 

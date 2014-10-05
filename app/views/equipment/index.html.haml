@@ -33,7 +33,6 @@
           = current_user.email.split("@")[0]
 
     .row
-      = image_tag("logo2.jpg", class: "logo")
       .col-md-6.col-md-offset-3
         %h1.title Список оборудования
     .row
@@ -55,7 +54,7 @@
       = link_to 'javascript:;', id: "up" do
         = fa_icon "angle-up 2x", class: "text-muted"
   .row
-    .col-md-6.col-md-offset-3
+    .col-md-8.col-md-offset-2
       #flash-display
         - flash.each do |type, msg|
           %div{:class => "alert alert-dismissable alert-#{type == "notice" ? "success" : "danger" }", "data-dismiss" => "alert"}
@@ -68,7 +67,7 @@
             %i.glyphicon.glyphicon-search
           = text_field_tag :search, params[:search], class: "form-control", placeholder: "Введите строку поиска..."
           %span.input-group-btn
-            = submit_tag "Поиск", class: "btn btn-primary", name: nil
+            = submit_tag "Поиск", class: "btn btn-success", name: nil
 
       #Container
         =render partial: 'container'

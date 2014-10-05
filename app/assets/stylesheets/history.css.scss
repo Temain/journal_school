@@ -3,9 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .history {
-  background-color: #ffffff;
+  background-color: rgb(54, 180, 255);;
   .menu {
-    background-color: #ffffff;
+    // background-color: #ffffff;
     .text-muted {
       //color: #2b3e50;
     }
@@ -21,7 +21,7 @@
   .header {
     // background-color: #4e5d6c;
     // border-bottom: 1px solid #FF6803;
-    border-bottom: 1px dashed #ccc;
+    border-bottom: 1px dashed #000;
 
     .title {
       border-left:2px solid #000;
@@ -33,6 +33,6 @@
   }
 
   .content {
-    border-bottom: 1px dashed #ccc;
+    border-bottom: 1px dashed #000;
   }
 }
