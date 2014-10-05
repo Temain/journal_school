@@ -54,7 +54,7 @@
       = link_to 'javascript:;', id: "up" do
         = fa_icon "angle-up 2x", class: "text-muted"
   .row
-    .col-md-8.col-md-offset-2
+    .col-md-12
       #flash-display
         - flash.each do |type, msg|
           %div{:class => "alert alert-dismissable alert-#{type == "notice" ? "success" : "danger" }", "data-dismiss" => "alert"}
